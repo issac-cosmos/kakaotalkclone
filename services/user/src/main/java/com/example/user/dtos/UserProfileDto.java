@@ -1,0 +1,4 @@
+package com.example.user.dtos;
+
+public class UserProfileDto {
+}
