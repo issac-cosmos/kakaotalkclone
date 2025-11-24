@@ -13,7 +13,7 @@ spring:
       pool-name: app-hikari
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto:
     open-in-view: false
     properties:
       hibernate:
