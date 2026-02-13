@@ -21,26 +21,31 @@ import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
-    public User userCreate(UserCreateDto dto){
-        User user = userRepository.save(dto.toEntity());
+
+    @Transactional
+    public Long createUser(UserCreateDto dto) {
+        User user = User.create(dto.birth(), dto.email(), dto.searchId());
+        return userRepository.save(user).getId();
+    }
+
+    public User userFindById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("userFindById - id : " + id + " -> 없는 ID입니다."));
         return user;
     }
-    public User userFindById(Long id){
-        User user = userRepository.findById(id).orElseThrow(()->
-                new EntityNotFoundException("userFindById - id : "+id+" -> 없는 ID입니다."));
+
+    public User getUserProfile(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("getUserProfile - id : " + id + " -> not found user"));
         return user;
     }
-    public User getUserProfile(Long id){
-        User user =userRepository.findById(id).orElseThrow(()->
-                new EntityNotFoundException("getUserProfile - id : "+ id  +" -> not found user"));
-        return user;
-    }
+
     // user 확인검증
 //    public Boolean validateUser(LoginRequest loginRequest){
 //        User user = userRepository.findByUserId(loginRequest.getId())
@@ -48,21 +53,22 @@ public class UserService {
 //        return passwordEncoder.matches(loginRequest.getPw(), user.getPassword());
 //    }
     // user 회원가입
-    public void registerUser(RegisterRequest registerRequest){
-        User user = new User();
-        user.toEntity(registerRequest.getRegisterId(),passwordEncoder.encode(registerRequest.getRegisterPw()));
-        userRepository.save(user);
-    }
-    public LoginResponse validateUser(LoginRequest loginRequest) {
-        User user = userRepository.findByUserId(loginRequest.getId())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + loginRequest.getId()));
-        if (passwordEncoder.matches(loginRequest.getPw(), user.getPassword())) {
-            String accessToken = jwtUtil.generateAccessToken(user.getUserId());
-            String refreshToken = jwtUtil.generateRefreshToken(user.getUserId());
-            return new LoginResponse(accessToken, refreshToken);
-        } else {
-            throw new RuntimeException("Invalid credentials");
-        }
-    }
+    public void registerUser(RegisterRequest registerRequest) {
+//        User user = new User();
+//        user.toEntity(registerRequest.getRegisterId(),passwordEncoder.encode(registerRequest.getRegisterPw()));
+//        userRepository.save(user);
+//    }
+//    public LoginResponse validateUser(LoginRequest loginRequest) {
+//        User user = userRepository.findByUserId(loginRequest.getId())
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + loginRequest.getId()));
+//        if (passwordEncoder.matches(loginRequest.getPw(), user.getPassword())) {
+//            String accessToken = jwtUtil.generateAccessToken(user.getUserId());
+//            String refreshToken = jwtUtil.generateRefreshToken(user.getUserId());
+//            return new LoginResponse(accessToken, refreshToken);
+//        } else {
+//            throw new RuntimeException("Invalid credentials");
+//        }
+//    }
 
+    }
 }

@@ -4,28 +4,18 @@ import com.example.user.domain.DelYN;
 import com.example.user.domain.User;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserCreateDto {
-    private String email;
-    private String password;
-    private String searchId;
-    private LocalDateTime createAt;
-
-
-    //toEntity
-    public User toEntity(){
-        return User.builder()
-                .email(this.email).password(this.password)
-                .searchId(this.searchId)
-                .createAt(LocalDateTime.now())
-                .build();
-    }
+public record UserCreateDto(
+        @NotBlank @Email String email,
+        @NotBlank @Size(max = 50) String searchId,
+        @NotBlank @Size(min = 8, max = 8) String birth
+) {
 }

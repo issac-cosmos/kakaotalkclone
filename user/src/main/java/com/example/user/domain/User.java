@@ -22,9 +22,13 @@ public class User {
 //    @Column(nullable = false)
     private String nickName;
     private String phoneNumber;
+    private String birth;
     private String profileImage; //기본이미지 연결할꺼임
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false, unique = true, length = 50)
+    private String searchId;
+    private String statusMessage;
     private LocalDateTime createAt;
     @Enumerated(EnumType.STRING)
     @Builder.Default
