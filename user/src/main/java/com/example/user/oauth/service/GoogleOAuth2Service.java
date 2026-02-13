@@ -1,4 +1,4 @@
-/*
+
 package com.example.oauth.service;
 
 import com.example.oauth.config.OAuth2Config;
@@ -33,10 +33,10 @@ public class GoogleOAuth2Service {
     private final OAuthTokenRepository tokenRepository;
     private final SecurityService securityService;
 
-    */
+
 /**
      * Google OAuth 인증 URL 생성
-     *//*
+     */
 
     public String getAuthorizationUrl(HttpSession session) {
         // CSRF 방지를 위한 state 생성
@@ -56,10 +56,9 @@ public class GoogleOAuth2Service {
                 .toUriString();
     }
 
-    */
 /**
      * Authorization Code를 Access Token으로 교환
-     *//*
+     */
 
     public OAuth2TokenResponse exchangeCodeForTokens(String code) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -87,10 +86,9 @@ public class GoogleOAuth2Service {
         }
     }
 
-    */
 /**
      * Access Token으로 사용자 정보 조회
-     *//*
+     */
 
     public GoogleUserInfo getUserInfo(String accessToken) {
         try {
@@ -109,11 +107,9 @@ public class GoogleOAuth2Service {
             throw new OAuth2Exception("Failed to get user information", e);
         }
     }
-
-    */
 /**
      * Refresh Token으로 새로운 Access Token 획득
-     *//*
+     */
 
     public OAuth2TokenResponse refreshAccessToken(String refreshToken) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -136,10 +132,10 @@ public class GoogleOAuth2Service {
         }
     }
 
-    */
+
 /**
      * 사용자 생성 또는 업데이트
-     *//*
+     */
 
     @Transactional
     public User createOrUpdateUser(GoogleUserInfo userInfo) {
@@ -161,10 +157,10 @@ public class GoogleOAuth2Service {
         }
     }
 
-    */
+
 /**
      * OAuth 토큰 저장
-     *//*
+     */
 
     @Transactional
     public void saveTokens(User user, OAuth2TokenResponse tokenResponse) {
@@ -191,4 +187,4 @@ public class GoogleOAuth2Service {
         random.nextBytes(bytes);
         return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
     }
-}*/
+}

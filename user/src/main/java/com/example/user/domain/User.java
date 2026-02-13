@@ -55,12 +55,14 @@ public class User {
     public static User create(String birth, String email, String searchId) {
         return new User(birth, email, searchId);
     }
+    @Builder
+    public static User register(String userId, String encodedPw) {
+        return User.builder()
+                .userId(userId)
+                .encodedPw(encodedPw)
+                .build();
+    }
     public UserProfileDto profileFromEntity(){
         return UserProfileDto.builder().id(this.id).NickName(this.nickName).profileImage(this.profileImage).build();
-    }
-
-    public void toEntity(String id, String pw){
-        this.userId = id;
-        this.password = pw;
     }
 }

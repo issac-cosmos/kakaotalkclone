@@ -1,0 +1,5 @@
+﻿# Placeholder .gitignore
+/build
+/.gradle
+/.idea
+*.iml
