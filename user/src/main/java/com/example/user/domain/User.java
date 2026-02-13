@@ -9,27 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @Column(nullable = false, length = 8)
     private String userId;
     private String password;
 
 //    @Column(nullable = false)
     private String nickName;
     private String phoneNumber;
-    private String birth;
     private String profileImage; //기본이미지 연결할꺼임
-//    @Column(nullable = false , unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
-    private String searchId;
-    private String statusMessage;
     private LocalDateTime createAt;
     @Enumerated(EnumType.STRING)
     @Builder.Default
@@ -47,6 +42,15 @@ public class User {
         friendships.add(friendship);
     }
 
+    private User(String birth, String email, String searchId) {
+        this.birth = birth;
+        this.email = email;
+        this.searchId = searchId;
+    }
+
+    public static User create(String birth, String email, String searchId) {
+        return new User(birth, email, searchId);
+    }
     public UserProfileDto profileFromEntity(){
         return UserProfileDto.builder().id(this.id).NickName(this.nickName).profileImage(this.profileImage).build();
     }

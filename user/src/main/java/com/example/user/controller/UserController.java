@@ -8,11 +8,14 @@ import com.example.user.dtos.UserProfileDto;
 import com.example.user.oauth.dto.LoginResponse;
 import com.example.user.oauth.dto.RegisterRequest;
 import com.example.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -21,10 +24,10 @@ public class UserController {
     private final UserService userService;
 
     //유저 생성 create
-    @PostMapping("/create")
-    public ResponseEntity<User> userCreate(@RequestBody UserCreateDto dto){
-        User user = userService.userCreate(dto);
-        return ResponseEntity.ok(user);
+    @PostMapping
+    public ResponseEntity<Map<String, Long>> createUser(@Valid @RequestBody UserCreateDto dto) {
+        Long id = userService.createUser(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("id", id));
     }
     //관리자 유저 조회용
     @GetMapping("/admin/{id}")
