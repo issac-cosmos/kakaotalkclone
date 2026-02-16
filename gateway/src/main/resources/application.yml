@@ -1,4 +1,7 @@
-﻿spring:
+﻿server:
+  port: 8080
+
+spring:
   application:
     name: gateway
   cloud:
@@ -12,6 +15,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
-
-server:
-  port: 8080

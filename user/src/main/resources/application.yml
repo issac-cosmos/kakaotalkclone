@@ -1,5 +1,7 @@
 #spring.application.name=user
 spring:
+  application:
+    name: user-service
   datasource:
     url: jdbc:mariadb://localhost:3307/mydb
     username: admin
@@ -23,3 +25,7 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug      # ?? ? SQL ??
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

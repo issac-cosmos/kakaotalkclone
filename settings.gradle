@@ -1,0 +1,7 @@
+rootProject.name = 'services'
+
+include 'eureka'
+include 'gateway'
+include 'user'
+include 'chat'
+include 'payment'
