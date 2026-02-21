@@ -9,6 +9,7 @@
         </processorPath>
         <module name="services.user.main" />
         <module name="services.payment.main" />
+        <module name="services.chat.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: chat-service   # ??
+    name: chat-service
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -17,6 +17,19 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "com.example.chat.*"
+  datasource:
+    url: jdbc:mariadb://localhost:3306/chat
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
 eureka:
   client:
     service-url:
