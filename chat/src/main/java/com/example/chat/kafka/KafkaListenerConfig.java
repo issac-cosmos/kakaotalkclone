@@ -1,4 +1,4 @@
-package com.example.chat.cofig;
+package com.example.chat.kafka;
 
 import com.example.chat.dtos.ChatMessageEvent;
 import org.springframework.context.annotation.Bean;

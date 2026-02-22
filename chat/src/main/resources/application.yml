@@ -37,5 +37,6 @@ eureka:
 chat:
   topic:
     message: chat.message.v1
+    read: chat.read.v1
 server:
   port: 8083
